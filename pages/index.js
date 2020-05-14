@@ -1,9 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Skeleton from '@material-ui/lab/Skeleton';
+import { makeStyles } from '@material-ui/core/styles';
 
-export default class App extends Component {
-  render() {
-    return (
-      <div className="App">123</div>
-    );
-  }
+const useStyles = makeStyles({
+  root: {
+    width: 300,
+  },
+});
+
+export default function Animations() {
+  const classes = useStyles();
+  return (
+    <div className={classes.root}>
+      <Skeleton />
+      <Skeleton animation={false} />
+      <Skeleton animation="wave" />
+    </div>
+  );
 }
