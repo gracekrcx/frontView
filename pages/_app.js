@@ -1,6 +1,7 @@
 import React from "react";
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../styled/materialUITheme';
+import DefaultPage from '../components/defaultPage'
 
 export default function MyApp({ Component, pageProps }){
 
@@ -14,7 +15,9 @@ export default function MyApp({ Component, pageProps }){
 
   return(
     <ThemeProvider theme={theme}>
-      <Component {...pageProps}/>
+      <DefaultPage>
+        <Component {...pageProps}/>
+      </DefaultPage>
     </ThemeProvider>
   )
 }
