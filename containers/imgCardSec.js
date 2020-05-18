@@ -1,6 +1,8 @@
-import React from 'react';
-import ImgCard from './imgCard'
+import React, {useEffect} from 'react';
+import ImgCard from '../components/imgCardWrap/imgCard'
 import { makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux'
+import {getApiArticles} from '../actions'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -81,30 +83,47 @@ const Selector = ({style, checked, text}) => {
   return (<div className={`${style.selector} ${checked && style.checked}`}>{text}</div>)
 }
 
-export default function ImgCardSec() {
+const ImgCardSec = (props) => {
   const classes = useStyles()
+  const {article,getApiArticles} = props
+
+  useEffect(() => {
+    getApiArticles(1)
+  },[])
+
 
   return (
     <div className={classes.root}>
       <div className={classes.header}>
         <div className={classes.title}>近期文章</div>
         <div className={classes.options}>
-          <Selector style={classes} checked={false} text='全部' />
-          <Selector style={classes} checked={false} text='專題' />
-          <Selector style={classes} checked={true} text='影評' />
-          <Selector style={classes} checked={false} text='新聞' />
+          {/*
+            <Selector style={classes} checked={false} text='全部' />
+            <Selector style={classes} checked={false} text='專題' />
+            <Selector style={classes} checked={true} text='影評' />
+            <Selector style={classes} checked={false} text='新聞' />
+          */}
         </div>
         <div className={classes.lineWrap}>
           <div className={classes.lineLeft}/>
           <div className={classes.lineRight}/>
         </div>
       </div>
-      <ImgCard />
-      <ImgCard />
-      <ImgCard />
-      <ImgCard />
-      <ImgCard />
-      <ImgCard />
+
+      {(article.list ? article.list : Array.from(new Array(6))).map((item, idx) => {
+        return item ? (<ImgCard key={idx} item={item}/>) : (<ImgCard key={idx} loading/>)
+      })}
     </div>
   );
 }
+
+export default connect(
+  state => ({
+    article : state.api.data,
+  }),
+  dispatch => ({
+    getApiArticles(val){
+      dispatch(getApiArticles(val))
+    }
+  })
+)(ImgCardSec)

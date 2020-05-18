@@ -4,10 +4,12 @@ import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import Avatar from '@material-ui/core/Avatar';
 import Skeleton from '@material-ui/lab/Skeleton';
+import {dateHander} from '../../helper/dateHelper'
 
 const useStyles = makeStyles((theme)=>({
   card: {
     width: 245,
+    height: 351,
     margin: '0px 0px 15px',
     background: theme.palette.background.default,
     [theme.breakpoints.down('md')]: {
@@ -18,6 +20,8 @@ const useStyles = makeStyles((theme)=>({
     },
     [theme.breakpoints.down('xs')]: {
       width: '100%',
+      height: 'auto',
+      margin: '0px 0px 20px',
     },
   },
   mediaBox:{
@@ -46,7 +50,10 @@ const useStyles = makeStyles((theme)=>({
 
     '&:hover':{
       color: '#e7008c',
-    }
+    },
+    [theme.breakpoints.down('xs')]: {
+      height: 'auto',
+    },
   },
   infoWrp:{
     display: 'flex',
@@ -85,8 +92,10 @@ const useStyles = makeStyles((theme)=>({
 }));
 
 export default function ImgCard(props) {
-  const { loading = false } = props;
+  const { loading = false, item = null } = props;
   const classes = useStyles();
+
+  // console.log('-item-->',item);
 
   return (
     <Card className={classes.card} elevation={0}>
@@ -97,8 +106,8 @@ export default function ImgCard(props) {
           <CardMedia
             className={classes.media}
             component="img"
-            title="Ted talk"
-            src='/static/placeholder.png'
+            title="img"
+            src={item.first_image ? item.first_image :'/static/placeholder.png'}
           />
         )}
       </div>
@@ -109,7 +118,7 @@ export default function ImgCard(props) {
             <Skeleton animation="wave" height={28} style={{ marginBottom: 5}} />
           </React.Fragment>
         ) : (
-          <div className={classes.title}>影評∣《美好拾光公司》人生充滿了投射、期望、自己寫的腳本</div>
+          <div className={classes.title}>{item.content_title}</div>
         )
       }
       <div className={classes.infoWrp}>
@@ -119,8 +128,8 @@ export default function ImgCard(props) {
               <Skeleton animation="wave" variant="circle" width={40} height={40} />
             ) : (
               <Avatar
-                alt="Ted talk"
-                src="https://img.ezding.com.tw/photos/mymovie/act/ezding.png"
+                alt="avatar"
+                src={item.author.author_photo ? `https://img.ezding.com.tw/photos/mymovie/act/${item.author.author_photo}` :"https://img.ezding.com.tw/photos/mymovie/act/ezding.png"} 
               />
             )
           }
@@ -133,19 +142,24 @@ export default function ImgCard(props) {
                 </React.Fragment>
               ) : (
                 <React.Fragment>
-                  <div>白色豆腐蛋糕</div>
-                  <div>2020/05/11</div>
+                  <div>{item.author.author_name ? item.author.author_name : '作者'}</div>
+                  <div>{dateHander(item.created_time)}</div>
                 </React.Fragment>
               )
             }
           </div>
         </div>
-        <div className={classes.icon}>有雷</div>
+        {
+          loading ? null : (
+            item.eval != 1 ? null :  <div className={classes.icon}>有雷</div>
+          )
+        }
+
       </div>
       {loading ? (
         <Skeleton animation="wave" variant="rect" height={60} style={{ marginTop: 10}}/>
       ) : (
-        <div className={classes.ctx}>2019 金馬獎最佳男主角、新導演、原創電影歌曲入圍｜2020 香港電影金像獎最佳男主角、女主角、女配角、新晉導演等八項大獎入圍｜榮獲迷影精神賞年度榮譽大奬、華</div>
+        <div className={classes.ctx}>{item.content_title}</div>
       )}
     </Card>
   );
