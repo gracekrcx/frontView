@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import ImgCard from '../components/imgCardWrap/imgCard'
+import ImgCard from '../components/imgCard/imgCard'
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux'
 import {getApiArticles} from '../actions'
@@ -83,7 +83,7 @@ const Selector = ({style, checked, text}) => {
   return (<div className={`${style.selector} ${checked && style.checked}`}>{text}</div>)
 }
 
-const ImgCardSec = (props) => {
+const ImgCardWrap = (props) => {
   const classes = useStyles()
   const {article,getApiArticles} = props
 
@@ -126,4 +126,4 @@ export default connect(
       dispatch(getApiArticles(val))
     }
   })
-)(ImgCardSec)
+)(ImgCardWrap)

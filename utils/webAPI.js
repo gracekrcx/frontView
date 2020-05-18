@@ -7,7 +7,6 @@ const WebAPI = {
     fetchHelper(
       APIConfig.GET_DATA(id),
       cb => {
-        // console.log('cb--->',cb)
         data(cb)
       },
     )
@@ -17,7 +16,6 @@ const WebAPI = {
     fetchHelper(
       APIConfig.GET_ARTICLE(page),
       cb => {
-        // console.log('文章--->',cb)
         callback(cb)
       },
     )

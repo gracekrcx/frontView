@@ -1,5 +1,5 @@
 import React from 'react';
-import ImgCardSec from '../containers/imgCardSec'
+import ImgCardWrap from '../containers/imgCardWrap'
 import {ContentWrap} from '../styled/commonStyled'
 import Pagination from '../components/common/pagination'
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,7 +17,7 @@ export default function App() {
 
   return (
     <ContentWrap>
-      <ImgCardSec/>
+      <ImgCardWrap/>
       <div className={classes.block}>
         <Pagination/>
       </div>

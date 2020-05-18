@@ -5,12 +5,14 @@ import {
 import { handleActions } from 'redux-actions';
 
 const initState = {
-  data:{}
+  data:{},
+  test:{}
 }
 
 const apiReducer = handleActions({
   [fetchSomeApiSuccess] : (state, {payload}) => {
-    return  {data: []}
+    // 測試
+    return  {test: {}}
   },
   [fetchApiArticleSuccess] : (state, {payload}) => {
     return {data: payload}
