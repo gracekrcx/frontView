@@ -4,7 +4,7 @@ import apiReducer from './api'
 
 const rootReducer = combineReducers({
   member: memberReducer,
-  api:apiReducer
+  api: apiReducer
 });
   
 export default rootReducer;

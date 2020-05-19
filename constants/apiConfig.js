@@ -17,7 +17,10 @@ const APIConfig = {
   GET_DATA: (id)=> {
     return sendRequest().get(`/todos/${id}`)
   },
-  GET_ARTICLE: (page) => {
+  GET_ARTICLE: (page, type = null) => {
+    if(type){
+      return sendRequest().get(`/contents?content_category=movie_express&valid=1&content_type=${type}&page=${page}&page_size=6`)
+    }
     return sendRequest().get(`/contents?content_category=movie_express&valid=1&page=${page}&page_size=6`)
   }
 }

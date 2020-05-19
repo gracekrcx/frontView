@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import ImgCard from '../components/imgCard/imgCard'
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux'
-import {getApiArticles} from '../actions'
+import {getApiArticlesLoading, setArticleType} from '../actions'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -79,30 +79,67 @@ const useStyles = makeStyles(theme => ({
 }))
 
 // 選項
-const Selector = ({style, checked, text}) => {
-  return (<div className={`${style.selector} ${checked && style.checked}`}>{text}</div>)
+const Selector = ({style, checked, text, handleClick}) => {
+  const divStyle = `${style.selector} ${checked && style.checked}`
+  return (
+    <div className={divStyle} onClick={()=>handleClick(text)}>{text}</div>)
 }
+
+const SelectorItem = [
+  {text: '全部'},
+  {text: '專題'},
+  {text: '影評'},
+  {text: '新聞'},
+]
 
 const ImgCardWrap = (props) => {
   const classes = useStyles()
-  const {article,getApiArticles} = props
+  const { article ,getApiArticlesLoading, setArticleType } = props
+
+  const [checked, setChecked] = React.useState('全部');
+
+  const handleClick = (item)=>{
+    let type = ''
+
+    switch(item) {
+    case '專題':
+      type = 'topic'
+      break;
+    case '影評':
+      type = 'cinecism'
+      break;
+    case '新聞':
+      type = 'news'
+      break;
+    default:
+      type = ''
+    }
+
+    setChecked(item)
+    getApiArticlesLoading(1, type)
+    setArticleType(type)
+  }
 
   useEffect(() => {
-    getApiArticles(1)
+    getApiArticlesLoading(1)
   },[])
-
 
   return (
     <div className={classes.root}>
       <div className={classes.header}>
         <div className={classes.title}>近期文章</div>
         <div className={classes.options}>
-          {/*
-            <Selector style={classes} checked={false} text='全部' />
-            <Selector style={classes} checked={false} text='專題' />
-            <Selector style={classes} checked={true} text='影評' />
-            <Selector style={classes} checked={false} text='新聞' />
-          */}
+          {
+            SelectorItem.map((item, idx)=>(
+              <Selector 
+                key={idx} 
+                style={classes} 
+                checked={checked == item.text} 
+                text={item.text} 
+                handleClick={handleClick}
+              />
+            ))
+          }
         </div>
         <div className={classes.lineWrap}>
           <div className={classes.lineLeft}/>
@@ -122,8 +159,11 @@ export default connect(
     article : state.api.data,
   }),
   dispatch => ({
-    getApiArticles(val){
-      dispatch(getApiArticles(val))
+    getApiArticlesLoading(val, type){
+      dispatch(getApiArticlesLoading(val, type))
+    },
+    setArticleType(articleTyle){
+      dispatch(setArticleType({articleTyle}))
     }
   })
 )(ImgCardWrap)

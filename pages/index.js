@@ -1,7 +1,7 @@
 import React from 'react';
 import ImgCardWrap from '../containers/imgCardWrap'
 import {ContentWrap} from '../styled/commonStyled'
-import Pagination from '../components/common/pagination'
+import Pagination from '../containers/pagination'
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({

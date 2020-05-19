@@ -11,10 +11,10 @@ const WebAPI = {
       },
     )
   },
-  GET_ARTICLE: (page, callback) => {
+  GET_ARTICLE: (page, type, callback) => {
     // 拿文章
     fetchHelper(
-      APIConfig.GET_ARTICLE(page),
+      APIConfig.GET_ARTICLE(page, type),
       cb => {
         callback(cb)
       },
