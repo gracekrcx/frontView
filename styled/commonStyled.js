@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 const sizes = {
   xs: 0,
@@ -37,4 +37,33 @@ export const ContentWrap = styled.div`
 export const FooterWrap = styled.div`
   background-color: #2b2b2b;
   height: 200px;
+`
+
+const loadingAnimation = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+`
+
+
+export const Loader = styled.div`
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+
+
+  &:after {
+    content: " ";
+    display: block;
+    width: 46px;
+    height: 46px;
+    margin: 1px;
+    border-radius: 50%;
+    border: 5px solid #ccc;
+    border-color: #ccc transparent #ccc transparent;
+    animation: ${loadingAnimation} 0.8s linear infinite;
+  }
 `
