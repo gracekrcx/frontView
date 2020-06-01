@@ -1,3 +1,5 @@
+![img](https://bit.ly/2XlO8NR)
+
 ### run the repository
 `yarn dev`
 
@@ -11,4 +13,5 @@
 - ESlint
 
 ### HOC pattern
-改寫 loading 為 HOC 後 code 更獨立
+改寫 loading 為 HOC 後 code 顯得乾淨獨立
+![img](https://bit.ly/2TU4MSj)
