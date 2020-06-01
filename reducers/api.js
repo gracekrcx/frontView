@@ -2,7 +2,7 @@ import {
   fetchSomeApiSuccess,
   fetchApiArticleSuccess,
   setArticleType,
-  setLoading,
+  deleteArticleData
 } from '../actions'
 import { handleActions } from 'redux-actions';
 
@@ -24,8 +24,8 @@ const apiReducer = handleActions({
   [setArticleType] : (state, {payload}) => {
     return {...state, articleTyle: payload.articleTyle}
   },
-  [setLoading] : (state, {payload}) => {
-    return {...state, loading: payload}
+  [deleteArticleData] : (state) => {
+    return {...state, data: {}}
   },
 },
 initState,

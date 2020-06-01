@@ -6,7 +6,7 @@ export const fetchSomeApiSuccess = createAction('FETCH_SOME_API_SUCCESS');
 export const fetchSomeApiFailure = createAction('FETCH_SOME_API_FAILURE');
 export const fetchApiArticleSuccess = createAction('FETCH_API_ARTICLE_SUCCESS');
 export const setArticleType = createAction('SET_ARTICLE_TYPE');
-export const setLoading = createAction('SET_LOADING');
+export const deleteArticleData = createAction('DELETE_ARTICLE_DATA');
 
 
 // Api : 測試串接 
@@ -21,16 +21,6 @@ export const getApi = () => dispatch => {
 export const getApiArticles = (page = 1, type) => dispatch => {
 
   const cb = data => { 
-    dispatch(fetchApiArticleSuccess(data));
-  }
-  WebAPI.GET_ARTICLE(page, type, cb)
-};
-
-// Api : 拿文章 and loading
-export const getApiArticlesLoading = (page = 1, type) => dispatch => {
-  dispatch(setLoading(true));
-  const cb = data => { 
-    dispatch(setLoading(false));
     dispatch(fetchApiArticleSuccess(data));
   }
   WebAPI.GET_ARTICLE(page, type, cb)

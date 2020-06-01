@@ -2,7 +2,8 @@ import React, {useEffect} from 'react';
 import ImgCard from '../components/imgCard/imgCard'
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux'
-import {getApiArticlesLoading, setArticleType} from '../actions'
+import {getApiArticles, setArticleType, deleteArticleData} from '../actions'
+import WithLoading from '../components/hoc/loader'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -94,7 +95,7 @@ const SelectorItem = [
 
 const ImgCardWrap = (props) => {
   const classes = useStyles()
-  const { article ,getApiArticlesLoading, setArticleType } = props
+  const { article ,getApiArticles, setArticleType, deleteArticleData } = props
 
   const [checked, setChecked] = React.useState('全部');
 
@@ -116,13 +117,23 @@ const ImgCardWrap = (props) => {
     }
 
     setChecked(item)
-    getApiArticlesLoading(1, type)
     setArticleType(type)
+    // 把舊的 article 資料清掉
+    deleteArticleData()
+    // 讓 loading 效果出現
+    setTimeout(()=>{
+      getApiArticles(1, type)
+    },3500)
   }
 
   useEffect(() => {
-    getApiArticlesLoading(1)
+    // 讓 loading 效果出現
+    setTimeout(()=>{
+      getApiArticles(1)
+    },3500)
   },[])
+
+  const ImgCardWithLoading = WithLoading(ImgCard)
 
   return (
     <div className={classes.root}>
@@ -147,8 +158,10 @@ const ImgCardWrap = (props) => {
         </div>
       </div>
 
-      {(article.list ? article.list : Array.from(new Array(6))).map((item, idx) => {
-        return item ? (<ImgCard key={idx} item={item}/>) : (<ImgCard key={idx} loading/>)
+      {(article.list ? article.list 
+        : 
+        Array.from(new Array(6))).map((item, idx) => {
+        return <ImgCardWithLoading key={idx} item={item}/>
       })}
     </div>
   );
@@ -159,11 +172,14 @@ export default connect(
     article : state.api.data,
   }),
   dispatch => ({
-    getApiArticlesLoading(val, type){
-      dispatch(getApiArticlesLoading(val, type))
+    getApiArticles(val, type){
+      dispatch(getApiArticles(val, type))
     },
     setArticleType(articleTyle){
       dispatch(setArticleType({articleTyle}))
+    },
+    deleteArticleData(){
+      dispatch(deleteArticleData())
     }
   })
 )(ImgCardWrap)

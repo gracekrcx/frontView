@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme=>({
 const PaginationButtons = (props) => {
   const classes = useStyles();
   const [page, setPage] = React.useState(1);
-  const {getApiArticles, totalPage = 10, articleTyle, loading} = props
+  const {getApiArticles, totalPage = 10, articleTyle, isData} = props
 
   const handleChange = (event, val) => {
     setPage(val)
@@ -30,7 +30,7 @@ const PaginationButtons = (props) => {
   return (
     <div>
       {
-        loading ? (
+        Object.keys(isData).length === 0 ? (
           <div></div>
         ) : (
           <Pagination
@@ -52,7 +52,7 @@ export default connect(
   state => ({
     totalPage: state.api.data.total_pages,
     articleTyle: state.api.articleTyle,
-    loading: state.api.loading,
+    isData: state.api.data,
   }), 
   dispatch => ({
     getApiArticles(val, type){
