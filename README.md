@@ -1,5 +1,10 @@
 ![img](https://bit.ly/2XlO8NR)
 
+### 簡介
+製作此範例的目的：
+1. 熟悉 redux 環境設定
+2. 把剛學習的 HOC pattern 運用在真實範例
+
 ### run the repository
 `yarn dev`
 
@@ -29,7 +34,5 @@ const WithLoading = WrappedComponent => {
   export default WithLoading
 ```
 
-改寫 loading 為 HOC 後，讓 WrappedComponent 不需判斷 loading 
-（下圖為 WrappedComponent 拿掉 loading 判斷）
+改寫 loading 為 HOC 後，WrappedComponent 裡就不需有判斷 loading 的邏輯。
 
-![img](https://bit.ly/2TU4MSj)
