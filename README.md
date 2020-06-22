@@ -3,7 +3,8 @@
 ### 簡介
 製作此範例的目的：
 1. 熟悉 redux 環境設定
-2. 把剛學習的 HOC pattern 運用在真實範例
+2. 使用 redux-thunk 處理 api 呼叫
+3. 把剛學習的 HOC pattern 運用在真實範例
 
 ### run the repository
 `yarn dev`
@@ -23,7 +24,7 @@ const WithLoading = WrappedComponent => {
    return class LoadingHOC extends Component {
      render() {
        return this.props.item ? (
-         <WrappedComponent item={this.props.item} />
+         <WrappedComponent {...this.props}/>
        ) : (
          <ImgCardLoading />
        );
