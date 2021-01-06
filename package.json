@@ -11,7 +11,7 @@
   "dependencies": {
     "@material-ui/core": "^4.9.10",
     "@material-ui/lab": "^4.0.0-alpha.53",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "express": "^4.17.1",
     "lodash": "^4.17.15",
     "next": "9.3.5",
